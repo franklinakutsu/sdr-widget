@@ -44,10 +44,18 @@
     document.body.appendChild(w);
   }
 }
+
+// Tenta imediatamente e após delays
+sdrEnsureBody();
 setTimeout(sdrEnsureBody, 100);
 setTimeout(sdrEnsureBody, 500);
 setTimeout(sdrEnsureBody, 1000);
-setTimeout(sdrEnsureBody, 2000);
+
+// Observer que monitora mudanças no DOM e reposiciona se necessário
+var observer = new MutationObserver(function() {
+  sdrEnsureBody();
+});
+observer.observe(document.body, { childList: true, subtree: true });
 
   // State
   var sdrState = 'idle';
