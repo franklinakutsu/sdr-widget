@@ -219,8 +219,9 @@
     btn.disabled = true;
     btn.textContent = 'Gerando link...';
     erro.classList.remove('show');
+    
     // Rastreia o clique no botão
-    fetch(SDR_URL_SESSION + '/track-checkout', {
+    fetch(SDR_URL_CHECKOUT + '/track-checkout', {
       method: 'POST', headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ lead_id: sdrLeadId, conversation_id: sdrConvId })
     }).catch(function() {});
