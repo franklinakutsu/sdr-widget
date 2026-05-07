@@ -281,9 +281,12 @@
       form.className = 'sdr-checkout-form';
       form.id = formId;
       form.innerHTML =
-        '<button class="sdr-checkout-submit" onclick="sdrSubmitCheckout(\'' + formId + '\')">Ir para o pagamento</button>' +
+        '<button class="sdr-checkout-submit" type="button">Ir para o pagamento</button>' +
         '<span class="sdr-checkout-error" id="' + formId + '-erro"></span>';
       el.appendChild(form);
+      form.querySelector('.sdr-checkout-submit').addEventListener('click', function () {
+        sdrSubmitCheckout(formId);
+      });
     }
     if (scroll !== false) sdrScrollBottom();
   }
