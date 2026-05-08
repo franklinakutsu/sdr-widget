@@ -250,10 +250,11 @@
 
   function sdrClose() {
     if (!sdrConvId || sdrState !== 'active') return;
-    fetch(SDR_URL_SESSION + '/close', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ lead_id: sdrLeadId, conversation_id: sdrConvId, reason: 'page_unload' }) });
+    var blob = new Blob([JSON.stringify({ lead_id: sdrLeadId, conversation_id: sdrConvId, reason: 'page_unload' })], { type: 'application/json' });
+    navigator.sendBeacon(SDR_URL_SESSION + '/close', blob);
     localStorage.removeItem('sdr_session');
   }
-  window.addEventListener('beforeunload', sdrClose);
+  window.addEventListener('pagehide', sdrClose);
 
   function sdrRenderFromCache() {
     var el = document.getElementById('sdr-messages'); el.innerHTML = '';
